@@ -27,7 +27,7 @@
                  [metrics-clojure "2.9.0"]
                  [com.taoensso/timbre "4.8.0"]
                  [com.taoensso/nippy "2.14.0"]
-                 [io.aeron/aeron-all "1.21.2"]
+                 [io.aeron/aeron-all "1.41.3"]
                  [io.replikativ/hasch "0.3.4"
                   :exclusions [org.clojure/clojurescript com.cognitect/transit-clj
                                com.cognitect/transit-cljs org.clojure/data.fressian
@@ -41,163 +41,163 @@
                  [org.deephacks.lmdbjni/lmdbjni-linux64 "0.4.6"]
                  [org.deephacks.lmdbjni/lmdbjni-win64 "0.4.6"]
                  [org.deephacks.lmdbjni/lmdbjni-osx64 "0.4.6"]]
-                 :jvm-opts ^:replace ["-server"
-                                      "-Xmx2400M"
-                                      "-XX:+UseG1GC"
-                                      "-XX:-OmitStackTraceInFastThrow"]
-                 :profiles {:dev {:global-vars {*warn-on-reflection* true}
-                                  :dependencies [[org.clojure/tools.nrepl "0.2.11"]
-                                                 [org.clojure/java.jmx "0.3.4"]
-                                                 [org.clojure/test.check "0.9.0"]
-                                                 [org.senatehouse/expect-call "0.2.0"]
-                                                 [mdrogalis/stateful-check "0.3.2"]
-                                                 [lbradstreet/test.chuck "0.2.7-20160709.160608-2"]
-                                                 [joda-time/joda-time "2.8.2"]]
-                                  :plugins [[lein-jammin "0.1.1"]
-                                            [lein-set-version "0.4.1"]
-                                            [mdrogalis/lein-unison "0.1.17"]
-                                            [codox "0.8.8"]]
-                                  :resource-paths ["test-resources/"]}
-                            :circle-ci {:global-vars {*warn-on-reflection* true}
-                                        :jvm-opts ["-Xmx2500M"]}
-                            :clojure-1.7 {:dependencies [[org.clojure/clojure "1.7.0"]]}
-                            :clojure-1.8 {:dependencies [[org.clojure/clojure "1.8.0"]]}}
-                 :test-selectors {:default (fn [t] (if-not (or (:stress t) (:broken t))
-                                                     t))
-                                  :stress :stress
-                                  :broken :broken
-                                  :smoke :smoke}
-                 :unison
-                 {:repos
-                  [{:git "git@onyx-kafka:onyx-platform/onyx-kafka.git"
-                    :branch "compatibility"
-                    :release-branch "master"
-                    :release-script "scripts/release.sh"
-                    :skip-compatibility? true
-                    :merge "master"}
-                   {:git "git@onyx-peer-http-query:onyx-platform/onyx-peer-http-query.git"
-                    :branch "compatibility"
-                    :release-branch "master"
-                    :release-script "scripts/release.sh"
-                    :skip-compatibility? true
-                    :merge "master"}
-                   ; {:git "git@onyx-kafka-0.8:onyx-platform/onyx-kafka-0.8.git"
-                   ;  :branch "compatibility"
-                   ;  :release-branch "master"
-                   ;  :release-script "scripts/release.sh"
-                   ; :skip-compatibility? true
-                   ;  :merge "master"}
-                   {:git "git@onyx-datomic:onyx-platform/onyx-datomic.git"
-                    :branch "compatibility"
-                    :release-branch "master"
-                    :release-script "scripts/release.sh"
-                    :skip-compatibility? true
-                    :merge "master"}
-                   {:git "git@onyx-sql:onyx-platform/onyx-sql.git"
-                    :branch "compatibility"
-                    :release-branch "master"
-                    :release-script "scripts/release.sh"
-                    :skip-compatibility? true
-                    :merge "master"}
-                   {:git "git@onyx-amazon-kinesis:onyx-platform/onyx-amazon-kinesis.git"
-                    :branch "compatibility"
-                    :release-branch "master"
-                    :release-script "scripts/release.sh"
-                    :skip-compatibility? true
-                    :merge "master"}
-                   {:git "git@onyx-redis:onyx-platform/onyx-redis.git"
-                    :branch "compatibility"
-                    :release-branch "master"
-                    :release-script "scripts/release.sh"
-                    :skip-compatibility? true
-                    :merge "master"}
-                   ; {:git "git@onyx-durable-queue:onyx-platform/onyx-durable-queue.git"
-                   ;  :branch "compatibility"
-                   ;  :release-branch "master"
-                   ;  :release-script "scripts/release.sh"
-                   ;  :merge "master"}
-                   {:git "git@onyx-bookkeeper:onyx-platform/onyx-bookkeeper.git"
-                    :branch "compatibility"
-                    :release-branch "master"
-                    :release-script "scripts/release.sh"
-                    :merge "master"}
-                   {:git "git@onyx-http:onyx-platform/onyx-http.git"
-                    :branch "compatibility"
-                    :release-branch "master"
-                    :release-script "scripts/release.sh"
-                    :merge "master"}
-                   ; {:git "git@onyx-elasticsearch:onyx-platform/onyx-elasticsearch.git"
-                   ;  :branch "compatibility"
-                   ;  :release-branch "master"
-                   ;  :release-script "scripts/release.sh"
-                   ;  :merge "master"}
-                   {:git "git@onyx-amazon-sqs:onyx-platform/onyx-amazon-sqs.git"
-                    :branch "compatibility"
-                    :release-branch "master"
-                    :release-script "scripts/release.sh"
-                    :merge "master"}
-                   {:git "git@onyx-amazon-s3:onyx-platform/onyx-amazon-s3.git"
-                    :branch "compatibility"
-                    :release-branch "master"
-                    :release-script "scripts/release.sh"
-                    :merge "master"}
-                   {:git "git@onyx-dashboard:onyx-platform/onyx-dashboard.git"
-                    :branch "compatibility"
-                    :release-branch "master"
-                    :release-script "scripts/release.sh"
-                    :merge "master"}
-                   ; {:git "git@onyx-starter:onyx-platform/onyx-starter.git"
-                   ;  :branch "compatibility"
-                   ;  :release-branch "master"
-                   ;  :release-script "script/release.sh"
-                   ;  :merge "master"}
-                   {:git "git@onyx-template:onyx-platform/onyx-template.git"
-                    :branch "compatibility"
-                    :release-branch "master"
-                    :release-script "scripts/release.sh"
-                    :skip-compatibility? true
-                    :merge "master"}
-                   {:git "git@learn-onyx:onyx-platform/learn-onyx.git"
-                    :branch "compatibility"
-                    :release-branch "answers"
-                    :release-script "scripts/release.sh"
-                    :skip-compatibility? true
-                    :merge "master"}
-                   {:git "git@onyx-examples:onyx-platform/onyx-examples.git"
-                    :project-file :discover
-                    :branch "compatibility"
-                    :release-branch "master"
-                    :release-script "release.sh"
-                    :skip-compatibility? true
-                    :merge "master"}
-                   {:git "git@onyx-cheat-sheet:onyx-platform/onyx-cheat-sheet.git"
-                    :branch "compatibility"
-                    :release-branch "master"
-                    :release-script "scripts/release.sh"
-                    :skip-compatibility? true
-                    :merge "master"}
-                   {:git "git@onyx-platform.github.io:onyx-platform/onyx-platform.github.io.git"
-                    :branch "compatibility"
-                    :release-branch "master"
-                    :release-script "build-site.sh"
-                    :skip-compatibility? true
-                    :merge "master"}
-                   {:git "git@onyx-local-rt:onyx-platform/onyx-local-rt.git"
-                    :branch "compatibility"
-                    :release-branch "master"
-                    :release-script "scripts/release.sh"
-                    :skip-compatibility? true
-                    :merge "master"}
-                   {:git "git@onyx-spec:onyx-platform/onyx-spec.git"
-                    :branch "compatibility"
-                    :release-branch "master"
-                    :release-script "scripts/release.sh"
-                    :skip-compatibility? true
-                    :merge "master"}
-                   {:git "git@lib-onyx:onyx-platform/lib-onyx.git"
-                    :branch "compatibility"
-                    :release-branch "master"
-                    :release-script "scripts/release.sh"
-                    :skip-compatibility? true
-                    :merge "master"}]}
-                   :codox {:output-dir "doc/api"})
+  :jvm-opts ^:replace ["-server"
+                       "-Xmx2400M"
+                       "-XX:+UseG1GC"
+                       "-XX:-OmitStackTraceInFastThrow"]
+  :profiles {:dev {:global-vars {*warn-on-reflection* true}
+                   :dependencies [[org.clojure/tools.nrepl "0.2.11"]
+                                  [org.clojure/java.jmx "0.3.4"]
+                                  [org.clojure/test.check "0.9.0"]
+                                  [org.senatehouse/expect-call "0.3.0"]
+                                  [mdrogalis/stateful-check "0.3.2"]
+                                  [lbradstreet/test.chuck "0.2.7-20160709.160608-2"]
+                                  [joda-time/joda-time "2.8.2"]]
+                   :plugins [[lein-jammin "0.1.1"]
+                             [lein-set-version "0.4.1"]
+                             [mdrogalis/lein-unison "0.1.17"]
+                             [codox "0.8.8"]]
+                   :resource-paths ["test-resources/"]}
+             :circle-ci {:global-vars {*warn-on-reflection* true}
+                         :jvm-opts ["-Xmx2500M"]}
+             :clojure-1.7 {:dependencies [[org.clojure/clojure "1.7.0"]]}
+             :clojure-1.8 {:dependencies [[org.clojure/clojure "1.8.0"]]}}
+  :test-selectors {:default (fn [t] (if-not (or (:stress t) (:broken t))
+                                      t))
+                   :stress :stress
+                   :broken :broken
+                   :smoke :smoke}
+  :unison
+  {:repos
+   [{:git "git@onyx-kafka:onyx-platform/onyx-kafka.git"
+     :branch "compatibility"
+     :release-branch "master"
+     :release-script "scripts/release.sh"
+     :skip-compatibility? true
+     :merge "master"}
+    {:git "git@onyx-peer-http-query:onyx-platform/onyx-peer-http-query.git"
+     :branch "compatibility"
+     :release-branch "master"
+     :release-script "scripts/release.sh"
+     :skip-compatibility? true
+     :merge "master"}
+    ; {:git "git@onyx-kafka-0.8:onyx-platform/onyx-kafka-0.8.git"
+    ;  :branch "compatibility"
+    ;  :release-branch "master"
+    ;  :release-script "scripts/release.sh"
+    ; :skip-compatibility? true
+    ;  :merge "master"}
+    {:git "git@onyx-datomic:onyx-platform/onyx-datomic.git"
+     :branch "compatibility"
+     :release-branch "master"
+     :release-script "scripts/release.sh"
+     :skip-compatibility? true
+     :merge "master"}
+    {:git "git@onyx-sql:onyx-platform/onyx-sql.git"
+     :branch "compatibility"
+     :release-branch "master"
+     :release-script "scripts/release.sh"
+     :skip-compatibility? true
+     :merge "master"}
+    {:git "git@onyx-amazon-kinesis:onyx-platform/onyx-amazon-kinesis.git"
+     :branch "compatibility"
+     :release-branch "master"
+     :release-script "scripts/release.sh"
+     :skip-compatibility? true
+     :merge "master"}
+    {:git "git@onyx-redis:onyx-platform/onyx-redis.git"
+     :branch "compatibility"
+     :release-branch "master"
+     :release-script "scripts/release.sh"
+     :skip-compatibility? true
+     :merge "master"}
+    ; {:git "git@onyx-durable-queue:onyx-platform/onyx-durable-queue.git"
+    ;  :branch "compatibility"
+    ;  :release-branch "master"
+    ;  :release-script "scripts/release.sh"
+    ;  :merge "master"}
+    {:git "git@onyx-bookkeeper:onyx-platform/onyx-bookkeeper.git"
+     :branch "compatibility"
+     :release-branch "master"
+     :release-script "scripts/release.sh"
+     :merge "master"}
+    {:git "git@onyx-http:onyx-platform/onyx-http.git"
+     :branch "compatibility"
+     :release-branch "master"
+     :release-script "scripts/release.sh"
+     :merge "master"}
+    ; {:git "git@onyx-elasticsearch:onyx-platform/onyx-elasticsearch.git"
+    ;  :branch "compatibility"
+    ;  :release-branch "master"
+    ;  :release-script "scripts/release.sh"
+    ;  :merge "master"}
+    {:git "git@onyx-amazon-sqs:onyx-platform/onyx-amazon-sqs.git"
+     :branch "compatibility"
+     :release-branch "master"
+     :release-script "scripts/release.sh"
+     :merge "master"}
+    {:git "git@onyx-amazon-s3:onyx-platform/onyx-amazon-s3.git"
+     :branch "compatibility"
+     :release-branch "master"
+     :release-script "scripts/release.sh"
+     :merge "master"}
+    {:git "git@onyx-dashboard:onyx-platform/onyx-dashboard.git"
+     :branch "compatibility"
+     :release-branch "master"
+     :release-script "scripts/release.sh"
+     :merge "master"}
+    ; {:git "git@onyx-starter:onyx-platform/onyx-starter.git"
+    ;  :branch "compatibility"
+    ;  :release-branch "master"
+    ;  :release-script "script/release.sh"
+    ;  :merge "master"}
+    {:git "git@onyx-template:onyx-platform/onyx-template.git"
+     :branch "compatibility"
+     :release-branch "master"
+     :release-script "scripts/release.sh"
+     :skip-compatibility? true
+     :merge "master"}
+    {:git "git@learn-onyx:onyx-platform/learn-onyx.git"
+     :branch "compatibility"
+     :release-branch "answers"
+     :release-script "scripts/release.sh"
+     :skip-compatibility? true
+     :merge "master"}
+    {:git "git@onyx-examples:onyx-platform/onyx-examples.git"
+     :project-file :discover
+     :branch "compatibility"
+     :release-branch "master"
+     :release-script "release.sh"
+     :skip-compatibility? true
+     :merge "master"}
+    {:git "git@onyx-cheat-sheet:onyx-platform/onyx-cheat-sheet.git"
+     :branch "compatibility"
+     :release-branch "master"
+     :release-script "scripts/release.sh"
+     :skip-compatibility? true
+     :merge "master"}
+    {:git "git@onyx-platform.github.io:onyx-platform/onyx-platform.github.io.git"
+     :branch "compatibility"
+     :release-branch "master"
+     :release-script "build-site.sh"
+     :skip-compatibility? true
+     :merge "master"}
+    {:git "git@onyx-local-rt:onyx-platform/onyx-local-rt.git"
+     :branch "compatibility"
+     :release-branch "master"
+     :release-script "scripts/release.sh"
+     :skip-compatibility? true
+     :merge "master"}
+    {:git "git@onyx-spec:onyx-platform/onyx-spec.git"
+     :branch "compatibility"
+     :release-branch "master"
+     :release-script "scripts/release.sh"
+     :skip-compatibility? true
+     :merge "master"}
+    {:git "git@lib-onyx:onyx-platform/lib-onyx.git"
+     :branch "compatibility"
+     :release-branch "master"
+     :release-script "scripts/release.sh"
+     :skip-compatibility? true
+     :merge "master"}]}
+  :codox {:output-dir "doc/api"})
